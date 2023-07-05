@@ -6,9 +6,7 @@ import Schemas from 'App/Schemas/Schemas'
 export default class PrintsController {
   public async index ({auth} : HttpContextContract) {
     const {id} = auth.user!
-
-    const prints = await Print.findBy('account_id', id)
-
+    const prints = await Print.query().where('account_id', '=', id)
     return {
       data: prints,
     }
@@ -23,10 +21,10 @@ export default class PrintsController {
     const print = new Print()
     print.fill(await Schemas.validatePrint(request))
 
-    const createdPrint = await account.related('prints').save(print)
+    await account.related('prints').save(print)
     response.status(201)
     return {
-      data: createdPrint,
+      message: 'Print successfuly created',
     }
   }
 }
