@@ -24,5 +24,11 @@ Route.group(() => {
   Route.get('/', async () => {
     return { message: 'API is up and running' }
   })
-  Route.resource('/account', 'AccountsController').apiOnly()
+  Route.post('/sign-up', 'AccountsController.signup')
+  Route.post('/login', 'AccountsController.login')
+  Route.post('/logout', 'AccountsController.logout')
+
+  Route.group(() => {
+    Route.resource('/prints', 'PrintsController').apiOnly
+  }).middleware('auth')
 }).prefix('/api')

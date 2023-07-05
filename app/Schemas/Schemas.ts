@@ -12,6 +12,12 @@ export default abstract class Schemas {
     ]),
   })
 
+  private static print = schema.create({
+    title: schema.string({trim:true}),
+    imageUrl: schema.string({trim:true}),
+    description: schema.string({trim:true}),
+  })
+
   public static async validadeAccount (request: HttpContextContract['request']) {
     const validatedAccount = await request.validate({
       schema: this.account,
@@ -24,5 +30,17 @@ export default abstract class Schemas {
       },
     })
     return validatedAccount
+  }
+
+  public static async validatePrint (request: HttpContextContract['request']) {
+    const validatedPrint = await request.validate({
+      schema: this.print,
+      messages: {
+        'title.required': 'Please inform a title',
+        'imageUrl.required': 'Please inform a imageUrl',
+        'description.email': 'Plese inform a description',
+      },
+    })
+    return validatedPrint
   }
 }
