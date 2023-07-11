@@ -14,8 +14,11 @@ export default abstract class Schemas {
 
   private static print = schema.create({
     title: schema.string({trim:true}),
-    imageUrl: schema.string({trim:true}),
     description: schema.string({trim:true}),
+    image: schema.file({
+      size: '5mb',
+      extnames: ['jpg', 'png'],
+    }),
   })
 
   public static async validadeAccount (request: HttpContextContract['request']) {
@@ -37,7 +40,7 @@ export default abstract class Schemas {
       schema: this.print,
       messages: {
         'title.required': 'Please inform a title',
-        'imageUrl.required': 'Please inform a imageUrl',
+        'image.required': 'Please upoad a image',
         'description.email': 'Plese inform a description',
       },
     })

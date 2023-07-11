@@ -9,7 +9,7 @@ export default class extends BaseSchema {
 
       table.integer('account_id').unsigned().references('id').inTable('accounts').onDelete('CASCADE').notNullable()
       table.string('title').notNullable()
-      table.string('image_url').notNullable()
+      table.string('image_url').notNullable().unique()
       table.string('description').notNullable()
 
       /**
